@@ -10,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/go-co-op/gocron"
 	"github.com/hashicorp/go-version"
 	"github.com/joho/godotenv"
 
@@ -54,27 +55,24 @@ func main() {
 
 	defer global.CloseDatabase()
 
-	chanClose := make(chan os.Signal, 1)
-	signal.Notify(chanClose, os.Interrupt, syscall.SIGTERM)
-
-	ticker := time.NewTicker(time.Duration(tickerSeconds) * time.Second)
-	defer ticker.Stop()
-
 	log.Println("starting...")
 	callMonitors()
 
-	for {
-		select {
-		case <-chanClose:
-			log.Println("shutting down...")
-			return
-		case <-ticker.C:
-			callMonitors()
-		}
-	}
+	scheduler := gocron.NewScheduler(time.UTC)
+	scheduler.Every(tickerSeconds).Seconds().Do(func() {
+		callMonitors()
+	})
+	scheduler.StartAsync()
+
+	chanClose := make(chan os.Signal, 1)
+	signal.Notify(chanClose, os.Interrupt, syscall.SIGTERM)
+	<-chanClose
+	log.Println("shutting down...")
+	// scheduler.Stop()
 }
 
 func callMonitors() {
+	log.Println("calling monitors...")
 	for _, monitorFunc := range monitor.MonitorFuncs {
 		result, err := monitorFunc()
 		if err != nil {
