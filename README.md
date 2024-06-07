@@ -1,4 +1,5 @@
 # Browser-Version-Monitor
+
 Monitor browser versions release and alert
 
 ## About
@@ -7,11 +8,17 @@ Made to monitor changes to browser versions. Uses PostgresSQL.
 
 ## Setup
 
-First step is to make sure your go.mod is up-to-date:
+First step is to make sure your go.mod is tidied:
 
 ```sh
 go mod tidy
 ```
+
+## Database Setup
+
+The database is self-hosted PostgresSQL.
+
+*cba explain how you host that so just google about it sob*
 
 ## Prisma
 
