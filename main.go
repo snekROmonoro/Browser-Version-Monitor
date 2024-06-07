@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -84,6 +83,7 @@ func callMonitors() {
 				continue
 			}
 
+			var storedVersion *version.Version
 			found, _ := global.DatabaseClient.Browser.FindFirst(
 				db.Browser.BrowserName.Equals(result.Browser),
 			).Exec(context.Background())
@@ -92,7 +92,7 @@ func callMonitors() {
 			var majorUpdate bool = false
 
 			if found != nil {
-				storedVersion, err := version.NewVersion(found.Version)
+				storedVersion, err = version.NewVersion(found.Version)
 				if err != nil {
 					log.Printf("failed to parse stored version %s %s: %s", result.Browser, found.Version, err)
 					continue
@@ -121,7 +121,9 @@ func callMonitors() {
 
 			if foundUpdate {
 				log.Printf("new version found (major %v): %s %s", majorUpdate, result.Browser, result.Version)
-				global.TelegramBot.SendMessage(fmt.Sprintf("Browser `%s` got an update\nCurrent version: `%s`\nMajor: `%v`", result.Browser, result.Version, majorUpdate))
+				if err := global.TelegramBot.SendMessage(result.UpdateString(storedVersion)); err != nil {
+					log.Printf("failed to send telegram message: %s", err)
+				}
 			}
 		}
 	}

@@ -32,3 +32,11 @@ To generate the database files:
 ```sh
 go run github.com/steebchen/prisma-client-go generate
 ```
+
+To look into the database:
+
+```sh
+go run github.com/steebchen/prisma-client-go studio
+
+prisma studio
+```

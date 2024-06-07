@@ -43,6 +43,11 @@ func (t *telegramBot) Close() {
 }
 
 func (t *telegramBot) SendMessage(text string) error {
+	// text = EscapeSpecialChars(text)
+	if text == "" {
+		return fmt.Errorf("message is empty")
+	}
+
 	if t.bot == nil {
 		return fmt.Errorf("bot is not initialized")
 	}
@@ -52,8 +57,37 @@ func (t *telegramBot) SendMessage(text string) error {
 	}
 
 	message := tgbotapi.NewMessage(t.channelId, text)
-	message.ParseMode = tgbotapi.ModeMarkdownV2
+	message.ParseMode = tgbotapi.ModeMarkdown
 
 	_, err := t.bot.Send(message)
 	return err
 }
+
+// func EscapeSpecialChars(text string) string {
+// 	replacements := map[string]string{
+// 		"_": "\\_",
+// 		"*": "\\*",
+// 		"[": "\\[",
+// 		"]": "\\]",
+// 		"(": "\\(",
+// 		")": "\\)",
+// 		"~": "\\~",
+// 		"`": "\\`",
+// 		">": "\\>",
+// 		"#": "\\#",
+// 		"+": "\\+",
+// 		"-": "\\-",
+// 		"=": "\\=",
+// 		"|": "\\|",
+// 		"{": "\\{",
+// 		"}": "\\}",
+// 		".": "\\.",
+// 		"!": "\\!",
+// 	}
+
+// 	for old, new := range replacements {
+// 		text = strings.Replace(text, old, new, -1)
+// 	}
+
+// 	return text
+// }
