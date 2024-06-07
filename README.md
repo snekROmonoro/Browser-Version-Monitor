@@ -1,10 +1,13 @@
 # Browser-Version-Monitor
 
-Monitor browser versions release and alert
+Monitor browser versions release and alert.
+Feel free to fork the repo, just make sure to leave the credits!
+Don't forget to star ⭐ the repo!
 
 ## About
 
 Made to monitor changes to browser versions. Uses PostgresSQL.
+It alerts via a [Telegram Bot](https://t.me/BotFather) on a configured channel ID.
 
 ## Setup
 
@@ -47,3 +50,7 @@ go run github.com/steebchen/prisma-client-go studio
 
 prisma studio
 ```
+
+## Credits
+
+Wrote by [snek](https://t.me/snekromonoro)
