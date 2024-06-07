@@ -1,7 +1,9 @@
 # Browser-Version-Monitor
 
 Monitor browser versions release and alert.
+
 Feel free to fork the repo, just make sure to leave the credits!
+
 Don't forget to star ⭐ the repo!
 
 ## About
