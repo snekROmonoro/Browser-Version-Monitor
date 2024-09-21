@@ -2,30 +2,9 @@ package monitor
 
 import (
 	"fmt"
-	"time"
 )
 
 // Google Chrome: https://chromestatus.com/api/v0/channels
-
-type CustomTime struct {
-	time.Time
-}
-
-const ctLayout = "2006-01-02T15:04:05"
-
-func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
-	s := string(b)
-	// Remove quotes
-	if len(s) > 2 {
-		s = s[1 : len(s)-1]
-	}
-	t, err := time.Parse(ctLayout, s)
-	if err != nil {
-		return err
-	}
-	ct.Time = t
-	return nil
-}
 
 func ChromeMonitor() (*MonitorResult, error) {
 	type ResponseJSON map[string]struct {

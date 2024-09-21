@@ -55,4 +55,5 @@ var MonitorFuncs = []MonitorFunc{
 	ChromeMonitor,
 	FirefoxMonitor,
 	ChromiumMonitor,
+	EdgeMonitor,
 }

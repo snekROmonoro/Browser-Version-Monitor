@@ -72,10 +72,10 @@ func main() {
 
 func callMonitors() {
 	log.Println("calling monitors...")
-	for _, monitorFunc := range monitor.MonitorFuncs {
+	for i, monitorFunc := range monitor.MonitorFuncs {
 		result, err := monitorFunc()
 		if err != nil {
-			log.Printf("failed to monitor browser version: %s", err)
+			log.Printf("failed to monitor %d browser version: %s", i, err)
 		} else {
 			currVersion, err := version.NewVersion(result.Version)
 			if err != nil {

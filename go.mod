@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/joho/godotenv v1.5.1
 	github.com/shopspring/decimal v1.4.0
-	github.com/steebchen/prisma-client-go v0.37.0
+	github.com/steebchen/prisma-client-go v0.41.0
 )
 
 require github.com/hashicorp/go-version v1.7.0
