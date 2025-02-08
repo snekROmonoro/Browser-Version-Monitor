@@ -55,4 +55,4 @@ prisma studio
 
 ## Credits
 
-Wrote by [snek](https://t.me/snekromonoro)
+Wrote by [snek](https://t.me/daddysnek)
